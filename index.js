@@ -44,6 +44,11 @@ const lineBot = (req,res) => {
        case 'follow':
          promises.push(greeting_follow(ev));
          break;
+       case 'unfollow':
+         console.log('unfollow');
+       case 'message':
+         console.log('message');
+         break;
      }
  }
  Promise
