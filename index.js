@@ -20,7 +20,7 @@ connection.query(create_query)
     .then(()=>console.log('usersテーブル作成成功'))
     .catch(e=>console.log(e));
 
-const PORT = rocess.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 express()
     .listen(PORT, ()=>console.log('Listening on ${PORT}'));
