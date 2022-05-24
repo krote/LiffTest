@@ -23,8 +23,54 @@ connection.query(create_query)
     .then(()=>console.log('usersテーブル作成成功'))
     .catch(e=>console.log(e));
 
+const config = {
+    channelAcccessToken: process.env.ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET
+};
 
-express()
-    .listen(PORT, ()=>console.log('Listening on ${PORT}'));
+const client = new line.Client(config);
 
+app
+    .post('/hook', line.middleware(config), (req, res)=>lineBot(req, res))
+    .listen(PORT,()=>console.log(`Listening on ${PORT}`));
 
+const lineBot = (req, res) => {
+    res.status(200).end();
+    const events = req.body.events;
+    const promises = [];
+    for(let i=0;i<events.length;i++){
+        const ev = events[i];
+        switch(ev.type){
+            case 'follow':
+                console.log('event follow');
+                promises.push(greeting_follow(ev));
+                break;
+            case 'unfollow':
+                console.log('unfollow');
+                break;
+            case 'message':
+                console.log('message');
+        }
+    }
+    Promise
+        .all(promises)
+        .then(console.log('all promises passed'))
+        .catch(e=>console.error(e.stack));
+}
+
+// フォローしたら挨拶を返す関数
+const greeting_follow = async(ev) => {
+    const profile = await client.getProfile(ev.source.userId);
+    const insert_query = {
+        text: `INSERT INTO users (line_uid, name, age) VALUES($1,$2,$3);`,
+        values: [ev.source.userId, profile,displayName, 33]
+    };
+    connection.query(insert_query)
+        .then(()=>{
+            return client.repliyMessage(ev.replyToken, {
+                "type":"text",
+                "text":`${profile.displayName}さん、フォローありがとうございます`
+            });
+        })
+        .catchc(e=>console.log(e));
+}
