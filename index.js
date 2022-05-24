@@ -1,5 +1,8 @@
 const express = require('express');
+const app = express();
+const line = require('@line/bot-sdk');
 const { Client } = require('pg');
+const PORT = process.env.PORT || 5000;
 
 // Postgresへの接続
 const connection = new Client({
@@ -20,8 +23,8 @@ connection.query(create_query)
     .then(()=>console.log('usersテーブル作成成功'))
     .catch(e=>console.log(e));
 
-const PORT = process.env.PORT || 5000;
 
 express()
     .listen(PORT, ()=>console.log('Listening on ${PORT}'));
+
 
