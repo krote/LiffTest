@@ -12,7 +12,7 @@ connection.connect();
 
 // usersテーブル作成クエリ
 const create_query = {
-    text: 'CREATE TABLE IF NOT EXISTS users(id SERIAL NOT NULL, line_uid VARCHAR(50), name'
+    text: 'CREATE TABLE IF NOT EXISTS users(id SERIAL NOT NULL, line_uid VARCHAR(50), name VARCHAR(20), age SMALLINT);'
 };
 
 // CREATE 実行
