@@ -28,7 +28,7 @@ const config = {
     channelSecret: process.env.CHANNEL_SECRET
 };
 
-console.log({config});
+console.log(config);
 const client = new line.Client(config);
 
 //express
@@ -44,7 +44,7 @@ const lineBot = (req, res) => {
     console.log("linebot");
     for (let i = 0; i < events.length; i++) {
         const ev = events[i];
-        console.log({ev.type});
+        console.log(ev.type);
         switch (ev.type) {
             case 'follow':
                 promises.push(greeting_follow(ev));
