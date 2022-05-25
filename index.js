@@ -34,11 +34,11 @@ const client = new line.Client(config);
 //express
 express()
     .use(express.static('public'))
-    .post('/hook', line.middleware(config), (req, res) => lineBot(req, res))
-    .use(express.json())
-    .use(express.urlencoded({extended:true}))
-    .post('/api',(req, res)=>getUserInfo(req,res))
-    .listen(PORT, () => console.log(`Listening on ${PORT}!`));
+//    .post('/hook', line.middleware(config), (req, res) => lineBot(req, res))
+    .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
+    .use(express.urlencoded({ extended: true })) //これが/apiルーティングの前にこないと、ダメ
+    .post('/api', (req, res) => getUserInfo(req, res))
+    .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const lineBot = (req, res) => {
     res.status(200).end();
