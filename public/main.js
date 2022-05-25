@@ -6,6 +6,7 @@ window.onload = () => {
 
     //p要素の取得
     const pElement = document.getElementById('liff-message');
+    divPage.appendChild(pElement);
 
     //LIFFで立ち上げているかどうかの判定
     if (liff.isInClient()) {
