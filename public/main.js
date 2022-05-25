@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 window.onload = () => {
     const myLiffId = '1657160448-1BWlzBQp';
     const divPage = document.getElementById('liff-page');
@@ -14,6 +16,24 @@ window.onload = () => {
             liffId: myLiffId
         })
         .then(() => {
+
+            const idToken = liff.getIDToken();
+            const jsonData = JSON.stringify({
+                id_token: idToken
+            });
+
+            fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type:':'application/json'
+                },
+                body: jsonData,
+                credentials: 'same-origin'
+            })
+            .then(res=>{
+
+            })
+            .catch(e=>console.log(e));
 
             //プロフィール情報の取得
             liff.getProfile()
