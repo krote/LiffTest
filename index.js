@@ -34,17 +34,17 @@ const client = new line.Client(config);
 //express
 express()
     .use(express.static('public'))
-//    .post('/hook', line.middleware(config), (req, res) => lineBot(req, res))
+    .post('/hook', line.middleware(config), (req, res) => lineBot(req, res))
     .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
     .use(express.urlencoded({ extended: true })) //これが/apiルーティングの前にこないと、ダメ
     .post('/api', (req, res) => getUserInfo(req, res))
     .listen(PORT, () => console.log(`Listening on ${PORT} !?`));
 
 const lineBot = (req, res) => {
+    console.log("linebot");
     res.status(200).end();
     const events = req.body.events;
     const promises = [];
-    console.log("linebot");
     for (let i = 0; i < events.length; i++) {
         const ev = events[i];
         console.log(ev.type);

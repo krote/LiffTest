@@ -7,6 +7,9 @@ window.onload = () => {
     const pElement = document.getElementById('liff-message');
     divPage.appendChild(pElement);
 
+    const pElementLog = document.getElementById('liff-log');
+    divPage.appendChild(pElementLog);
+
     //LIFFで立ち上げているかどうかの判定
     if (liff.isInClient()) {
         pElement.innerHTML = 'これはLIFF画面です'
@@ -22,18 +25,18 @@ window.onload = () => {
                 id_token: idToken
             });
 
-            fetch('/api', {
+            fetch('/api',{
                 method: 'POST',
                 headers: {
-                    'Content-Type:':'application/json'
+                  'Content-Type':'application/json'
                 },
                 body: jsonData,
-                credentials: 'same-origin'
-            })
-            .then(res=>{
-
-            })
-            .catch(e=>console.log(e));
+                creadentials: 'same-origin'
+              })
+              .then(res=>{
+                //ここにレスポンス返ってくる
+              })
+              .catch(e=>console.log(e));
 
             //プロフィール情報の取得
             liff.getProfile()
