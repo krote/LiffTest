@@ -1,4 +1,3 @@
-const { json } = require("express");
 
 window.onload = () => {
     const myLiffId = '1657160448-1BWlzBQp';
