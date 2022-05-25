@@ -38,7 +38,7 @@ express()
     .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
     .use(express.urlencoded({ extended: true })) //これが/apiルーティングの前にこないと、ダメ
     .post('/api', (req, res) => getUserInfo(req, res))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+    .listen(PORT, () => console.log(`Listening on ${PORT} !?`));
 
 const lineBot = (req, res) => {
     res.status(200).end();
