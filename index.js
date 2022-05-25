@@ -35,7 +35,10 @@ const client = new line.Client(config);
 express()
     .use(express.static('public'))
     .post('/hook', line.middleware(config), (req, res) => lineBot(req, res))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+    .use(express.json())
+    .use(express.urlencoded({extended:true}))
+    .post('/api',(req, res)=>getUserInfo(req,res))
+    .listen(PORT, () => console.log(`Listening on ${PORT}!`));
 
 const lineBot = (req, res) => {
     res.status(200).end();
@@ -78,4 +81,9 @@ const greeting_follow = async (ev) => {
             });
         })
         .catch(e => console.log(e));
+}
+
+const getUserInfo = (req, res) => {
+    const data = req.body;
+    console.log('id_token:', data.id_token);
 }
