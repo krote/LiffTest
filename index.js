@@ -119,7 +119,8 @@ const getUserInfo = (req, res) => {
                                     text: `INSERT INTO users (line_uid,name,age) VALUES($1,$2,$3);`,
                                     values: [lineId, name, 33]
                                 };
-                                connection.query(insert_query);                            
+                                connection.query(insert_query);
+                                const age = 33;                        
                             }
                             res.status(200).send({age});
                         })
