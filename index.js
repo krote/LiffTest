@@ -90,6 +90,8 @@ const greeting_follow = async (ev) => {
 const getUserInfo = (req, res) => {
     const data = req.body;
     const postData = `id_token=${data.id_token}&client_id=${process.env.LOGIN_CHANNEL_ID}`;
+    console.log(postData);
+
     fetch('https://api.line.me/oauth2/v2.1/verify', {
         method: 'POST',
         headers: {
