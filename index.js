@@ -1,6 +1,8 @@
 const express = require('express');
 const { Client } = require('pg');
 const line = require('@line/bot-sdk');
+const fetch = require('node-fetch');
+const { response } = require('express');
 
 //Postgresへの接続
 const connection = new Client({
@@ -85,5 +87,20 @@ const greeting_follow = async (ev) => {
 
 const getUserInfo = (req, res) => {
     const data = req.body;
-    console.log('id_token:', data.id_token);
+    const postData = `id_token=${data.id_token}&client_id=${process.env.LOGIN_CHANNEL_ID}`;
+    fetch('https://api.line.me/oauth2/v2.1/verify', {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/x-www-form-urlencodedd'
+        },
+        body: postData
+    })
+    .then(response=>{
+        response.json()
+            .then(json=>{
+                console.log('response data:', json);
+            });
+    })
+    .catch(e=>console.log(e));
+    res.status(200).end();
 }
