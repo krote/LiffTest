@@ -42,8 +42,9 @@ window.onload = () => {
                             .then(profile => {
                                 const name = profile.displayName;
                                 const lineId = profile.userId;
+                                const age = json.age;
                                 const pElement2 = document.createElement('p');
-                                pElement2.innerHTML = `あなたの名前は${name}です。LINE IDは${lineId}です。`;
+                                pElement2.innerHTML = `あなたの名前は${name}です。<br>年齢は${age}歳です。<br>LINE IDは${lineId}です。`;
                                 divPage.appendChild(pElement2);
                             });
                     })
