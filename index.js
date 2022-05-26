@@ -113,6 +113,7 @@ const getUserInfo = (req, res) => {
                             if(data.rows.length>=1){
                                 console.log('data.rows[0]:',data.rows[0]);
                                 const age = data.rows[0].age;
+                                res.status(200).send({age});
                             }
                             else{
                                 const insert_query = {
@@ -121,8 +122,8 @@ const getUserInfo = (req, res) => {
                                 };
                                 connection.query(insert_query);
                                 const age = 33;                        
+                                res.status(200).send({age});
                             }
-                            res.status(200).send({age});
                         })
                         .catch(e=>console.log(e));
                 }
