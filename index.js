@@ -1,8 +1,12 @@
 const express = require('express');
 const { Client } = require('pg');
 const line = require('@line/bot-sdk');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const { response } = require('express');
+
+import nodeFetch, { RequestInfo, RequestInit } from "node-fetch";
+
+const fetch = (url: RequestInfo, init?: RequestInit) =>  import("node-fetch").then(({ default: fetch }) => nodeFetch(url, init));
 
 //Postgresへの接続
 const connection = new Client({
