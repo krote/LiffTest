@@ -22,7 +22,7 @@ const create_query = {
 
 //CREATEクエリ実行
 connection.query(create_query)
-    .then(() => console.log('usersテーブル作成成功！！'))
+    .then(() => console.log('usersテーブル作成成功'))
     .catch(e => console.log(e));
 
 const PORT = process.env.PORT || 5000;
@@ -32,7 +32,6 @@ const config = {
     channelSecret: process.env.CHANNEL_SECRET
 };
 
-console.log(config);
 const client = new line.Client(config);
 
 //express
@@ -45,15 +44,14 @@ express()
     .listen(PORT, () => console.log(`Listening on ${PORT} !?`));
 
 const lineBot = (req, res) => {
-    console.log("linebot");
     res.status(200).end();
     const events = req.body.events;
     const promises = [];
     for (let i = 0; i < events.length; i++) {
         const ev = events[i];
-        console.log(ev.type);
         switch (ev.type) {
             case 'follow':
+                console.log('follow');
                 promises.push(greeting_follow(ev));
                 break;
             case 'unfollow':
@@ -90,7 +88,6 @@ const greeting_follow = async (ev) => {
 const getUserInfo = (req, res) => {
     const data = req.body;
     const postData = `id_token=${data.id_token}&client_id=${process.env.LOGIN_CHANNEL_ID}`;
-    console.log(postData);
 
     fetch('https://api.line.me/oauth2/v2.1/verify', {
         method: 'POST',
