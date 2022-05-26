@@ -95,7 +95,7 @@ const getUserInfo = (req, res) => {
     fetch('https://api.line.me/oauth2/v2.1/verify', {
         method: 'POST',
         headers: {
-            'Content-Type':'application/x-www-form-urlencodedd'
+            'Content-Type':'application/x-www-form-urlencoded'
         },
         body: postData
     })
