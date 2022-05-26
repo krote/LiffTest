@@ -110,8 +110,17 @@ const getUserInfo = (req, res) => {
                     };
                     connection.query(select_query)
                         .then(data=>{
-                            console.log('data.rows[0]:',data.rows[0]);
-                            const age = data.rows[0].age;
+                            if(data.rows.length>=1){
+                                console.log('data.rows[0]:',data.rows[0]);
+                                const age = data.rows[0].age;
+                            }
+                            else{
+                                const insert_query = {
+                                    text: `INSERT INTO users (line_uid,name,age) VALUES($1,$2,$3);`,
+                                    values: [lineId, name, 33]
+                                };
+                                connection.query(insert_query);                            
+                            }
                             res.status(200).send({age});
                         })
                         .catch(e=>console.log(e));
